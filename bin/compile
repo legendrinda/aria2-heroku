@@ -13,12 +13,16 @@ DOWNLOAD_URL="https://github.com/q3aql/aria2-static-builds/releases/download/v1.
 echo "DOWNLOAD_URL = $DOWNLOAD_URL" | indent
 
 cd "$BUILD_DIR"
-mkdir -p "$VENDOR_DIR"
-cd "$VENDOR_DIR"
-mkdir -p aria2c
-cd aria2c
-wget -q "$DOWNLOAD_URL"
-tar jxf "${FILE}.tar.bz2"
+mkdir -p "$VENDOR_DIR/aria2c"
+cd "$VENDOR_DIR/aria2c"
+
+# download file explicitly with correct name
+wget -q "$DOWNLOAD_URL" -O "${FILE}.tar.bz2"
+
+# extract
+tar -xvjf "${FILE}.tar.bz2"
+
+# move binary
 mv "$FILE"/* .
 rm -rf "$FILE" "${FILE}.tar.bz2"
 
